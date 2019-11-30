@@ -1,0 +1,26 @@
+dataset:{ Cancer } method:{ kPCA } best params: {q: 1.0 sigma: 1.9307 } val auc: 0.9936   test auc: 0.9992
+dataset:{ Cancer } method:{ PCA } best params: {q: 1.0 } val auc: 0.6719   test auc: 0.401
+dataset:{ Cancer } method:{ ParzenWindow } best params: {sigma: 1.9307 } val auc: 0.9936   test auc: 0.9992
+dataset:{ Cancer } method:{ OCSVM } best params: {nu: 0.83 sigma: 3.3932 } val auc: 0.9938   test auc: 0.9992
+dataset:{ Digit0 } method:{ kPCA } best params: {q: 67.0 sigma: 4.9417 } val auc: 1.0   test auc: 1.0
+dataset:{ Digit0 } method:{ PCA } best params: {q: 20.0 } val auc: 0.7203   test auc: 0.4813
+dataset:{ Digit0 } method:{ ParzenWindow } best params: {sigma: 0.1151 } val auc: 0.9999   test auc: 0.9998
+dataset:{ Digit0 } method:{ OCSVM } best params: {nu: 0.51 sigma: 0.1389 } val auc: 0.9999   test auc: 0.9998
+dataset:{ Glass } method:{ kPCA } best params: {q: 46.0 sigma: 12.6486 } val auc: 0.8657   test auc: 0.6727
+dataset:{ Glass } method:{ PCA } best params: {q: 7.0 } val auc: 0.6971   test auc: 0.4091
+dataset:{ Glass } method:{ ParzenWindow } best params: {sigma: 0.2024 } val auc: 0.82   test auc: 0.6045
+dataset:{ Glass } method:{ OCSVM } best params: {nu: 0.03 sigma: 0.1677 } val auc: 0.82   test auc: 0.7364
+dataset:{ Ionosphere } method:{ kPCA } best params: {q: 25.0 sigma: 68.6649 } val auc: 0.9916   test auc: 0.985
+dataset:{ Ionosphere } method:{ PCA } best params: {q: 22.0 } val auc: 0.6651   test auc: 0.7036
+dataset:{ Ionosphere } method:{ ParzenWindow } best params: {sigma: 0.6251 } val auc: 0.9839   test auc: 0.987
+dataset:{ Ionosphere } method:{ OCSVM } best params: {nu: 0.91 sigma: 0.7543 } val auc: 0.9832   test auc: 0.9863
+dataset:{ Circles } method:{ kPCA } best params: {q: 25.0 sigma: 0.2947 } val auc: 1.0   test auc: 1.0
+dataset:{ Circles } method:{ PCA } best params: {q: 1.0 } val auc: 0.5565   test auc: 0.5183
+dataset:{ Circles } method:{ ParzenWindow } best params: {sigma: 0.0176 } val auc: 0.9979   test auc: 0.9955
+dataset:{ Circles } method:{ OCSVM } best params: {nu: 0.03 sigma: 0.1389 } val auc: 1.0   test auc: 0.9995
+dataset:{ Roll } method:{ kPCA } best params: {q: 53.0 sigma: 1.0985 } val auc: 0.9997   test auc: 0.9986
+dataset:{ Roll } method:{ PCA } best params: {q: 1.0 } val auc: 0.5431   test auc: 0.4163
+dataset:{ Roll } method:{ ParzenWindow } best params: {sigma: 0.3556 } val auc: 0.9987   test auc: 0.9967
+dataset:{ Roll } method:{ OCSVM } best params: {nu: 0.35 sigma: 0.7543 } val auc: 0.9997   test auc: 0.9993
+
+
