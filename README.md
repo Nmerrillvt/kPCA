@@ -75,10 +75,12 @@ Next, using these best parameter settings, ROC curves are generated based on det
 
 This table summarizes the results of the parameter search and testing. 
 
-| DataSet     | Method   | Best Param      | Val AUC  | Test AU C|
+| DataSet     | Method   | Best Param      | Val AUC  | Test AUC|
 | ----------- |:--------:| ---------------:|:--------:|:--------:|
-|             |          |                 |          |          |
-
+| Cancer |   kPCA       |  q: 1.0    sigma: 1.9307 | 0.9936 | 0.9992 |
+| Cancer |   PCA       |  q: 1.0    | 0.6719 | 0.401 |
+| Cancer |   ParzenWin       |  sigma: 1.9307    | 0.9936 | 0.9992 |
+| Cancer |   OCSVM       |  nu: 0.83 sigma: 1.9307    | 0.9938 | 0.9992 |
 
 
 #### Decision Boundary
