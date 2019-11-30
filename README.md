@@ -21,9 +21,10 @@ The objective of this study is to reproduce Hoffman's comparison between kPCA, l
 
   In this reproduction study, I use an implmentation of OC-SVMS from the PYOD toolkit for python which creates a wrapper function around the base sklearn library [[11](https://github.com/yzhao062/pyod)]. On his website, Hoffman provides a MATLAB implmentation of his algorithm [[12](http://www.heikohoﬀmann.de/kpca.html)]. I ported Hoffman's code to python class and removed most of the loops via Numpy to improve efficiency. As Hoffman described, the Parzen Density window is simply kPCA with no retained eigenvectors, or otherwise stated the points distance from the orgin in (F). This can be implmentented using the same kPCA class and setting the number of retained eigenvectors to zero. I created a seperate class to perform linear PCA and calculate the reconstruction error.
   
-  One of the issues I had with Hoffman's original evaluation was the absence of a validation set. He caputres the background model with a training set, but then performs parameter tuning directly on the test set. This is not representive of how the algorithms would be employed in the realworld application. In testing you do not know what the anomlous points are. To correct this in my reproduction, I equally split Hoffman's 'Breast cancer' and 'Digit 0' test sets into a validation and test set. Training (creating a model of the background) is still done on clean data containing no anomalies, however parameter tuning is now done on a grid search of the validation data. The best parameters in the validation set are then used for testing. 
+  One of the issues I had with Hoffman's original evaluation was the absence of a validation set. He caputres the background model with a training set, but then performs parameter tuning directly on the test set. This is not representive of how the algorithms would be employed in the realworld application. In testing you do not know what the anomlous points are. To correct this in my reproduction, I equally split Hoffman's 'Breast cancer' and 'Digit 0' test sets into a validation and test set. Training (creating a model of the background) is still done on clean data containing no anomalies, however parameter tuning is now done on a grid search of the validation data. The best parameters in the validation set (as measured by the AUC on the validation set) are then used for testing. 
   
   Parameter search:
+  
   kPCA: Sigma was changed from 1e-2 to 1e2 along a log scale. The integer number of retained principal components was changed from 1 to 100 (stopping at n-5) along a linear scale. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
   
   PCA: The integer number of retained principal components was changed from 1 to D. Note: At D the anomaly score for all points equals zero.
@@ -32,6 +33,17 @@ The objective of this study is to reproduce Hoffman's comparison between kPCA, l
   
   OC-SVM: In addition to sigma, OC-SVMs have another important parameter 'nu, which represents the lower bound for the number of samples that are on the wrong side of the hyperplane, representing a trade off between overfitting and underfitting [[13](https://papers.nips.cc/paper/1723-support-vector-method-for-novelty-detection.pdf)]. Sigma was changed from 1e-2 to 1e2 along a log scale. nu was changed on a linear scale from 0.01 to 0.99. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
   
+### Results
+
+The figures below show the results of the grid searches for each of the four methods on the validation set for each data set. The star indicates the best paramter choices. 
+
+![alt text][logo]
+
+
+[logo]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Cancer.png "Cancer Parameter Search"
+
+
+
 
 ### References
 [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
