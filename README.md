@@ -53,7 +53,7 @@ The figures below show the results of the grid searches for each of the four ano
 [Circles]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles.png "Circles Parameter Search"
 [Roll]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll.png "Rolls Parameter Search"
 
-#### Test Set
+#### Test ROC Curves
 
 Next, using these best parameter settings, ROC curves are generated based on detection on the test set. Note that the false positive rate is presented on a log scale to emphasize the most important region.
 
@@ -71,14 +71,24 @@ Next, using these best parameter settings, ROC curves are generated based on det
 [CirclesR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20roc.png "Circles ROC curves"
 [RollR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20roc.png "Rolls ROC curves"
 
+#### Summary
+
+This table summarizes the results of the parameter search and testing. 
+
+| DataSet     | Method   | Best Param      | Val AUC  | Test AU C|
+| ----------- |:--------:| ---------------:|:--------:|:--------:|
+|             |          |                 |          |          |
+
+
+
 #### Decision Boundary
 For a visual illustration of thresholding in the two dimensional toy examples 'Roll' and 'Circiles', a decision boundary can be formed around the background data. To do so, a lattice sampling of surrounding points is passed through a detection algorithm and a 2D contour that passes through the threshold score is established. To establish this boundary threshold score the highest anomaly score amongst the background points in the validation set was used, so that points with a greater score during testing are considered anomalous. 
 
 ![alt text][CirclesB]
 ![alt text][RollB]
 
-[CirclesB]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary.png "Circles Decision Boundary"
-[RollB]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary.png "Roll Decision Boundary"
+[CirclesB]:  "Circles Decision Boundary"
+[RollB]:  "Roll Decision Boundary"
 
 
 An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation.
