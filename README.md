@@ -77,11 +77,30 @@ This table summarizes the results of the parameter search and testing.
 
 | DataSet     | Method   | Best Param      | Val AUC  | Test AUC|
 | ----------- |:--------:| ---------------:|:--------:|:--------:|
-| Cancer |   kPCA       |  q: 1.0    sigma: 1.9307 | 0.9936 | 0.9992 |
-| Cancer |   PCA       |  q: 1.0    | 0.6719 | 0.401 |
-| Cancer |   ParzenWin       |  sigma: 1.9307    | 0.9936 | 0.9992 |
-| Cancer |   OCSVM       |  nu: 0.83 sigma: 1.9307    | 0.9938 | 0.9992 |
-
+| Cancer |   kPCA       |  q: 1    sigma: 1.9307 | 0.9936 | **0.9992** |
+| Cancer |   PCA       |  q: 1    | 0.6719 | 0.401 |
+| Cancer |   ParzenWin       |  sigma: 1.9307    | 0.9936 | **0.9992** |
+| Cancer |   OCSVM       |  nu: 0.83 sigma: 1.9307    | 0.9938 | **0.9992** |
+| Digit0 |   kPCA       |  q: 67    sigma: 4.9417 | 1.0 | **1.0** |
+| Digit0 |   PCA       |  q: 20    | 0.7203 | 0.4813 |
+| Digit0 |   ParzenWin       |  sigma: 0.1151    | 0.9999 | 0.9998 |
+| Digit0 |   OCSVM       |  nu: 0.51 sigma: 0.1389    | 0.9999 | 0.9998 |
+| Glass  |   kPCA       |  q: 46    sigma: 12.6486 | 0.8657 | 0.6727 |
+| Glass  |   PCA       |  q: 7    | 0.6971 | 0.4091 |
+| Glass  |   ParzenWin       |  sigma: 0.2024    | 0.82 | 0.6045 |
+| Glass  |   OCSVM       |  nu: 0.03 sigma: 0.1677    | 0.82 | **0.7364** |
+| Ionosphere  |   kPCA       |  q: 25    sigma: 68.6649 | 0.9916 | 0.985 |
+| Ionosphere  |   PCA       |  q: 22    | 0.6651 | 0.7036 |
+| Ionosphere  |   ParzenWin       |  sigma: 0.6251    | 0.9839| **0.987** |
+| Ionosphere  |  OCSVM       |  nu: 0.03 sigma: 0.7543    | 0.9832 | 0.7364 |
+| Circles  |   kPCA       |  q: 25    sigma: 0.2947 | 1.0 | **1.0** |
+| Circles  |   PCA       |  q: 1    | 0.5565 | 0.5183 |
+| Circles  |   ParzenWin       |  sigma: 0.0176    | 0.9979| 0.9955 |
+| Circles  |  OCSVM       |  nu: 0.03 sigma: 0.1389   | 1.0 | 0.9993 |
+| Roll  |   kPCA       |  q: 53    sigma: 1.0985 | 0.9997 | **0.9986** |
+| Roll  |   PCA       |  q: 1    | 0.5413 | 0.4163 |
+| Roll  |   ParzenWin       |  sigma: 0.3556   | 0.9987| 0.9967 |
+| Roll  |  OCSVM       |  nu: 0.35 sigma: 0.1389   | 0.9997 | 0.9993 |
 
 #### Decision Boundary
 For a visual illustration of thresholding in the two dimensional toy examples 'Roll' and 'Circiles', a decision boundary can be formed around the background data. To do so, a lattice sampling of surrounding points is passed through a detection algorithm and a 2D contour that passes through the threshold score is established. To establish this boundary threshold score the highest anomaly score amongst the background points in the validation set was used, so that points with a greater score during testing are considered anomalous. 
@@ -89,12 +108,13 @@ For a visual illustration of thresholding in the two dimensional toy examples 'R
 ![alt text][CirclesB]
 ![alt text][RollB]
 
-[CirclesB]:  "Circles Decision Boundary"
-[RollB]:  "Roll Decision Boundary"
+[CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary.png "Circles Decision Boundary"
+[RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary.png "Roll Decision Boundary"
 
 
-An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation.
+An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation. However it is important to note those parameter settings did not generalize, as the test time AUC was much lower. 
 
+Finer grid search allowed for more competitive 
 
 ### References
 [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
