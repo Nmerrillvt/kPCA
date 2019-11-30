@@ -103,7 +103,7 @@ This table summarizes the results of the parameter search and testing.
 | Roll  |  OCSVM       |  nu: 0.35 sigma: 0.1389   | 1.0 | **1.0** |
 
 #### Decision Boundary
-For a visual illustration of thresholding in the two dimensional toy examples 'Roll' and 'Circiles', a decision boundary can be formed around the background data. To do so, a lattice sampling of surrounding points is passed through a detection algorithm and a 2D contour that passes through the threshold score is established. To establish this boundary threshold score the highest anomaly score amongst the background points in the validation set was used, so that points with a greater score during testing are considered anomalous. We clearly see how linear PCA fails to seperate the nonlinear background from the anomalies.
+For a visual illustration of thresholding in the two dimensional toy examples 'Roll' and 'Circiles', a decision boundary can be formed around the background data. To do so, a lattice sampling of surrounding points is passed through a detection algorithm and a 2D contour that passes through the threshold score is established. To establish this boundary threshold score the highest anomaly score amongst the background points in the validation set was used, so that points with a greater score during testing are considered anomalous. The black represents the anomaly-free training data, the blue represents the background test points and the red represents the anomalous test-points. We clearly see how linear PCA fails to seperate the nonlinear background from the anomalies.
 
 ![alt text][CirclesB]
 ![alt text][RollB]
