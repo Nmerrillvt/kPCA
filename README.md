@@ -108,8 +108,8 @@ For a visual illustration of thresholding in the two dimensional toy examples 'R
 ![alt text][CirclesB]
 ![alt text][RollB]
 
-[CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary.png "Circles Decision Boundary"
-[RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary.png "Roll Decision Boundary"
+[CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary2.png "Circles Decision Boundary"
+[RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary2.png "Roll Decision Boundary"
 
 
 An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation. However it is important to note those parameter settings did not generalize, as the test time AUC was much lower. 
