@@ -68,8 +68,8 @@ Next, using these best parameter settings, ROC curves are generated based on det
 [Digit0R]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Digit0%20roc.png "Digit0 ROC curves"
 [GlassR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Glass%20roc.png "Glass ROC curves"
 [IonosphereR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Ionosphere%20roc.png "Ionosphere ROC curvesh"
-[CirclesR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20roc.png "Circles ROC curves"
-[RollR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20roc.png "Rolls ROC curves"
+[CirclesR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20roc2.png "Circles ROC curves"
+[RollR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20roc2.png "Rolls ROC curves"
 
 #### Summary
 
