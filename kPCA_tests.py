@@ -251,9 +251,9 @@ for key in data_sets:
             
             grid_errs = np.reshape(np.expand_dims(models[i].decision_function(grid_list),axis=1),grid_dims)
             
-            bg_idx = np.where(y_val == 0)
+            bgval_idx = np.where(y_val == 0)
             scores = models[i].decision_function(x_val)
-            fixed = np.max(scores[bg_idx])
+            fixed = np.max(scores[bgval_idx])
             cntr1 = axs_[i].contour(xx,yy,grid_errs,[fixed],colors=colors[i])
             #axs_[i].axis('off')
             axs_[i].set_xlim(xmin,xmax)
