@@ -121,6 +121,17 @@ Hoffman also produced a boundary comparison in his evaluation, however he used n
 
 Overall, I was able to reproduce the results of Hoffman's paper and demonstrate the benfit of kPCA as a novelty detection algorithm. However, the inclusion of a validation set for paramter tuning shows some potential issues for selecting the correct values of sigma and q. 
 
+### Dependencies and Code
+numpy                              1.16.4
+scikit-learn                       0.21.2
+matplotlib                         3.1.0
+pyod                               0.7.4
+
+kPCA_tests.py will reproduce the figures and print the results in the table.
+
+```bash
+python kPCA_tests.py
+```
 
 ### References
 [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
