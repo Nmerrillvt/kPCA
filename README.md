@@ -6,16 +6,26 @@
   
   Hoffman claims that because samples are treated independently a OC-SVM produces a boundary that is too large to tightly model the background data, causing false positives [1]. Hoffman draws from the benefits of kernel techniques and the potential limitations of SVMs, by using kernel PCA (kPCA) to better model the relationship between background points [4][6][7]. The separation of points in F and the background model serves as an anomaly score. In an Hoffman’s evaluation on a number of real-world and toy data sets, kPCA demonstrated better generalization, accuracy, and robustness over linear PCA, the Parzen density estimator, and OC-SVMs [1].
 
-
+### References
 [1] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
 1
+
 [2] M. Goldstein and S. Uchida, “A comparative evaluation of unsupervised anomaly detection algorithms for multivariate data,” PLoS ONE, Apr 2016.
+
 [3] G. Enderlein, “Hawkins, d. m.: Identiﬁcation of outliers. chapman and hall, london – new york 1980, 188 s., £ 14, 50,” Biometrical Journal, vol. 29, no. 2, pp. 198–198, 1987.
+
 [4] C. C. Olson, M. Coyle, and T. Doster, “A study of anomaly detection performance as a function of relative spectral abundances for graph- and statistics-based detection algorithms,” in Algorithms and Technologies for Multispectral, Hyperspectral, and Ultraspectral Imagery XXIII (M. Velez-Reyes and D. W. Messinger, eds.), vol. 10198, pp. 309 – 320, International Society for Optics and Photonics, SPIE, 2017.
+
 [5] D. M. Tax and R. P. Duin, “Support vector domain description,” Pattern Recognition Letters, vol. 20, no. 11, pp. 1191 – 1199, 1999.
+
 [6] B. Shen, B.-D. Liu, Q. Wang, Y. Fang, and J. P. Allebach, “Sp-svm: Large margin classiﬁer for data on multiple manifolds,” in Proceedings of the Twenty-Ninth AAAI Conference on Artiﬁcial Intelligence, AAAI’15, pp. 2965–2971, AAAI Press, 2015.
+
 [7] B. Sch¨olkopf, A. Smola, and K. Mu¨ller, “Nonlinear component analysis as a kernel eigenvalue problem,” Neural Computation, vol. 10, pp. 1299–1319, July 1998.
+
 [8] S. Rayana, “Outlier detection datasets: ODDS,” 2016.
+
 [9] http://www.heikohoﬀmann.de/kpca.html.
+
 [10] Y. Zhao, Z. Nasrullah, and Z. Li, “Pyod: A python toolbox for scalable outlier detection,” Journal of Machine Learning Research, vol. 20, no. 96, pp. 1–7, 2019.
+
 [11] B. Scho¨lkopf, R. Williamson, A. Smola, J. Shawe-Taylor, and J. Platt, “Support vector method for novelty detection,” in Proceedings of the 12th International Conference on Neural Information Processing Systems, NIPS’99, (Cambridge, MA, USA), pp. 582–588, MIT Press, 1999.
