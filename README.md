@@ -127,7 +127,7 @@ scikit-learn                       0.21.2
 matplotlib                         3.1.0
 pyod                               0.7.4
 
-kPCA_tests.py will reproduce the figures and print the results in the table.
+kPCA_tests.py will reproduce the figures and print the results in the table. The datasets are contined in the 'datasets' folder along with dataLoader.py that is required to load them. 'methods' contains the kPCA and PCA classes used in the main file.
 
 ```bash
 python kPCA_tests.py
