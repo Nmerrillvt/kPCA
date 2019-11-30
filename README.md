@@ -19,13 +19,13 @@ The objective of this study is to reproduce Hoffman's comparison between kPCA, l
 
  To begin, The 'Digit 0' and Breast Cancer datasets where obtained and augmented following the same steps specified by Hoffman [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Two more datasets, 'Glass' and 'Ionosphere', were obtained from ODDS [[10](http://odds.cs.stonybrook.edu/)].  Data preprocessing for these follow the same steps Hoffman used for the original Breast Cancer dataset, namely dividing each attribute by its standard deviation to ensure unit variance as well as adding a small amount of uniform noise to the data [-0.05,0.05] to help avoid numerical issues [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Fianlly, two artifical, non-linear, toy datasets were generated refered to as 'Circles' and 'Roll'.
 
-  In this reproduction study, I use an implmentation of OC-SVMS from the PYOD toolkit for python which creates a wrapper function around the base sklearn library [[11](https://github.com/yzhao062/pyod)]. On his website, Hoffman provides a MATLAB implmentation of his algorithm [[12](http://www.heikohoﬀmann.de/kpca.html)]. I ported Hoffman's code to python class and removed most of the loops via Numpy to improve efficiency. As Hoffman described, the Parzen Density window is simply kPCA with no retained eigenvectors, or otherwise stated the points distance from the orgin in (F). This can be implmentented using the same kPCA class and setting the number of retained eigenvectors to zero. I created a seperate class to perform linear PCA and calculate the reconstruction error.
+  In this reproduction study, I use an implmentation of OC-SVMS from the PYOD toolkit for python which creates a wrapper function around the base sklearn library [[11](https://github.com/yzhao062/pyod)]. On his website, Hoffman provides a MATLAB implmentation of his algorithm [[12](http://www.heikohoﬀmann.de/kpca.html)]. I ported Hoffman's code to python class and removed most of the loops via Numpy to improve efficiency. As Hoffman described, the Parzen Density window is simply kPCA with no retained eigenvectors, or otherwise stated the points distance from the orgin in (F). This can be implmentented using the same kPCA class and setting the number of retained eigenvectors to zero. I created a seperate class to perform linear PCA and calculate the reconstruction error. The purpose of the additional datasets is to further distinguish the different anomaly detection methods.  
   
-  One of the issues I had with Hoffman's original evaluation was the absence of a validation set. He caputres the background model with a training set, but then performs parameter tuning directly on the test set. This is not representive of how the algorithms would be employed in the realworld application. In testing you do not know what the anomlous points are. To correct this in my reproduction, I equally split Hoffman's 'Breast cancer' and 'Digit 0' test sets into a validation and test set. Training (creating a model of the background) is still done on clean data containing no anomalies, however parameter tuning is now done on a grid search of the validation data. The best parameters in the validation set (as measured by the AUC on the validation set) are then used for testing. 
+  One of the issues I had with Hoffman's original evaluation was the absence of a validation set. He caputres the background model with a training set, but then performs parameter tuning directly on the test set. This is not representive of how the algorithms would be employed in the realworld application. In testing you do not know what the anomlous points are. To correct this in my reproduction, I equally, randomly split Hoffman's 'Breast cancer' and 'Digit 0' test sets as well as the additional datasets into a validation and test set. Training (creating a model of the background) is still done on clean data containing no anomalies, however parameter tuning is now done on a grid search of the validation data. The best parameters in the validation set (as measured by the AUC on the validation set) are then used for testing, where we are blind to the distribution and characteristics of the anomalies.  
   
   Parameter search:
   
-  kPCA: Sigma was changed from 1e-2 to 1e2 along a log scale. The integer number of retained principal components was changed from 1 to 100 (stopping at n-5) along a linear scale. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
+  kPCA: Sigma was changed from 1e-2 to 1e2 along a log scale. The integer number of retained principal components (q) was changed from 1 to 100 (stopping at n-5) along a linear scale. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
   
   PCA: The integer number of retained principal components was changed from 1 to D. Note: At D the anomaly score for all points equals zero.
   
@@ -35,14 +35,42 @@ The objective of this study is to reproduce Hoffman's comparison between kPCA, l
   
 ### Results
 
-The figures below show the results of the grid searches for each of the four methods on the validation set for each data set. The star indicates the best paramter choices. 
+The figures below show the results of the grid searches for each of the four anomaly detection methods on the validation set for each data set. The star indicates the best paramter choices in the 2D grid, the colorbar represents AUC. 
 
-![alt text][logo]
+![alt text][Cancer]
+![alt text][Digit0]
+![alt text][Glass]
+![alt text][Ionosphere]
+![alt text][Circles]
+![alt text][Roll]
+
+[Cancer]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Cancer.png "Cancer Parameter Search"
+[Digit0]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Digit0.png "Digit0 Parameter Search"
+[Glass]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Glass.png "Glass Parameter Search"
+[Ionosphere]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Ionosphere.png "Ionosphere Parameter Search"
+[Circles]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles.png "Circles Parameter Search"
+[Roll]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll.png "Rolls Parameter Search"
+
+Next, using these best parameter settings, ROC curves are generated based on detection on the test set. Note that the false positive rate is presented on a log scale to emphasize the most important region.
+
+![alt text][CancerR]
+![alt text][Digit0R]
+![alt text][GlassR]
+![alt text][IonosphereR]
+![alt text][CirclesR]
+![alt text][RollsR]
+
+[CancerR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Cancer%20roc.png "Cancer ROC curves"
+[Digit0R]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Digit0%20roc.png "Digit0 ROC curves"
+[GlassR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Glass%20roc.png "Glass ROC curves"
+[IonosphereR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Ionosphere%20roc.png "Ionosphere ROC curvesh"
+[CirclesR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20roc.png "Circles ROC curves"
+[RollR]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20roc.png "Rolls ROC curves"
 
 
-[logo]: https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Cancer.png "Cancer Parameter Search"
 
 
+An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation.
 
 
 ### References
