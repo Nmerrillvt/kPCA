@@ -108,8 +108,8 @@ For a visual illustration of thresholding in the two dimensional toy examples 'R
 ![alt text][CirclesB]
 ![alt text][RollB]
 
-[CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary2.png "Circles Decision Boundary"
-[RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary2.png "Roll Decision Boundary"
+[CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary.png "Circles Decision Boundary"
+[RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary.png "Roll Decision Boundary"
 
 ### Discussion and Conclusion
 
