@@ -111,10 +111,16 @@ For a visual illustration of thresholding in the two dimensional toy examples 'R
 [CirclesB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Circles%20Boundary2.png "Circles Decision Boundary"
 [RollB]:  https://github.com/Nmerrillvt/kPCA/blob/master/Figures/Roll%20Boundary2.png "Roll Decision Boundary"
 
+### Discussion and Conclusion
 
-An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation. However it is important to note those parameter settings did not generalize, as the test time AUC was much lower. 
+An interesting result is that the three different kernel-based methods (kPCA, ParzenWindow, and OC-SVM) have similar regions of detection for the different values of sigma. For OC-SVM and kPCA, the choice of sigma dominates performance however there are different choices can significantly improve detection, as seen in the 'island' of higher AUC for kPCA in the Glass Validation.  
 
-Finer grid search allowed for more competitive 
+kPCA had the higher AUC across a greater number of datasets as Hoffman reports, but the split on the validation set shows one issue of generalization. The paramter setting for kPCA that were best during validation, were not necessarily the best during testing, as seen in the 'Glass' and, to a lesser extent, the 'Ionosphere' datasets . Additionally, a finer grid search than that shown in [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] allowed for a more competitive comparison between OC-SVM, kPCA, and the Parzen Window. On several datasets, each of these performed nearly perfectly, with corresponding AUCs very close to or equalling 1.0. 
+
+Hoffman also produced a boundary comparison in his evaluation, however he used noisy data to train the fit the model. This evaluation shows the results with 'clean' data and using the same validation split. Following these methods the differences between kPCA and OC-SVM are less dramatic. However, there is still a clear advantage over the Parzen Window which shows a lack of generalization.
+
+Overall, I was able to reproduce the results of Hoffman's paper and demonstrate the benfit of kPCA as a novelty detection algorithm. However the inclusion of a validation set for paramter tuning shows some potential issues for selecting the correct values of sigma and q. 
+
 
 ### References
 [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
