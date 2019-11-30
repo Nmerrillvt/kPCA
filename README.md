@@ -4,7 +4,34 @@
   
   Background data is often produced by non-linear processes [[4](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/10198/101980X/A-study-of-anomaly-detection-performance-as-a-function-of/10.1117/12.2264160.full?SSO=1)]. Kernel-based learning methods are motivated by the idea that there exists a better model of the data in a transformed, nonlinear, feature space (F). A kernel function allows the efficient computation of inner products in F without the explicit calculation of the mapping. The most popular amongst these methods for anomaly detection is the One-Class Support Vector Machine (OC-SVM), which separates the data from the origin in F [[5](http://rduin.nl/papers/prl_99_svdd.pdf)]. For a Gaussian radial-basis-function (rbf) kernel, this process is equivalent to spherically enclosing the data in F.
   
-  Hoffman claims that because samples are treated independently a OC-SVM produces a boundary that is too large to tightly model the background data, causing false positives [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Hoffman draws from the benefits of kernel techniques and the potential limitations of SVMs, by using kernel PCA (kPCA) to better model the relationship between background points [[4](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/10198/101980X/A-study-of-anomaly-detection-performance-as-a-function-of/10.1117/12.2264160.full?SSO=1),[6](https://dl.acm.org/citation.cfm?id=2888116.2888129),[7](https://dl.acm.org/citation.cfm?id=295960)]. The separation of points in F and the background model serves as an anomaly score. In an Hoffman’s evaluation on a number of real-world and toy data sets, kPCA demonstrated better generalization, accuracy, and robustness over linear PCA, the Parzen density estimator, and OC-SVMs [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)].
+ ### Kernel PCA
+  Hoffman claims that because samples are treated independently a OC-SVM produces a boundary that is too large to tightly model the background data, causing false positives [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Hoffman draws from the benefits of kernel techniques and the potential limitations of SVMs, by using kernel PCA (kPCA) to better model the relationship between background points [[4](https://www.spiedigitallibrary.org/conference-proceedings-of-spie/10198/101980X/A-study-of-anomaly-detection-performance-as-a-function-of/10.1117/12.2264160.full?SSO=1),[6](https://dl.acm.org/citation.cfm?id=2888116.2888129),[7](https://dl.acm.org/citation.cfm?id=295960)]. The separation of points in F and the background model serves as an anomaly score. 
+  
+  Hoffman begins by outlining the process of performing PCA in the feature space as well as how to obtain the anomaly score (reconstruction error) only from the ambient inputs using the kernel trick [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. In short, the anomaly score is the points euclidian distance from the orgin in (F) subtracted from the distance to the points projection onto some q, number of retained principal components in feature space.
+  
+  Hoffman then presents several evaluations of kPCA on a number of real-world and toy data sets, kPCA demonstrating better generalization, accuracy, and robustness over linear PCA, the Parzen density estimator, and OC-SVMs [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. The two real-world datasets Hoffman tests are the Wisconsin Breast Cancer (Diagnostic) Test [[8](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)], and a generated anomaly example from MNIST [[9](http://yann.lecun.com/exdb/mnist/)], where digit zero repersents the background and other digits serve as anomalous examples. Comparisons of specificity, sensitivity, and accuracy were made amongst kPCA, linear PCA, Parzen Density Windows, and the OC-SVM on these datasets using reciever operating characteristic (ROC) curves which plot false positive and true positive rates at different thresholds of anomaly scores. A desriable curve has a high true positive rates at low false positiver rates. An entire ROC curve can be summarized by the area under the curve (AUC). AUC can very between 0.5 (random guess) and 1.0 (perfect detection). 
+  
+### Objective
+
+The objective of this study is to reproduce Hoffman's comparison between kPCA, linear PCA, Parzen Density Windows, and the OC-SVM on the 'Breast Cancer' and' Digit 0', datasets. In addition I expand the comparison to four additional (two real, two generated) datasets. ROC curves are preduced and AUCs are calculated for each dataset.
+
+### Methods
+
+ To begin, The 'Digit 0' and Breast Cancer datasets where obtained and augmented following the same steps specified by Hoffman [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Two more datasets, 'Glass' and 'Ionosphere', were obtained from ODDS [[10](http://odds.cs.stonybrook.edu/)].  Data preprocessing for these follow the same steps Hoffman used for the original Breast Cancer dataset, namely dividing each attribute by its standard deviation to ensure unit variance as well as adding a small amount of uniform noise to the data [-0.05,0.05] to help avoid numerical issues [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)]. Fianlly, two artifical, non-linear, toy datasets were generated refered to as 'Circles' and 'Roll'.
+
+  In this reproduction study, I use an implmentation of OC-SVMS from the PYOD toolkit for python which creates a wrapper function around the base sklearn library [[11](https://github.com/yzhao062/pyod)]. On his website, Hoffman provides a MATLAB implmentation of his algorithm [[12](http://www.heikohoﬀmann.de/kpca.html)]. I ported Hoffman's code to python class and removed most of the loops via Numpy to improve efficiency. As Hoffman described, the Parzen Density window is simply kPCA with no retained eigenvectors, or otherwise stated the points distance from the orgin in (F). This can be implmentented using the same kPCA class and setting the number of retained eigenvectors to zero. I created a seperate class to perform linear PCA and calculate the reconstruction error.
+  
+  One of the issues I had with Hoffman's original evaluation was the absence of a validation set. He caputres the background model with a training set, but then performs parameter tuning directly on the test set. This is not representive of how the algorithms would be employed in the realworld application. In testing you do not know what the anomlous points are. To correct this in my reproduction, I equally split Hoffman's 'Breast cancer' and 'Digit 0' test sets into a validation and test set. Training (creating a model of the background) is still done on clean data containing no anomalies, however parameter tuning is now done on a grid search of the validation data. The best parameters in the validation set are then used for testing. 
+  
+  Parameter search:
+  kPCA: Sigma was changed from 1e-2 to 1e2 along a log scale. The integer number of retained principal components was changed from 1 to 100 (stopping at n-5) along a linear scale. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
+  
+  PCA: The integer number of retained principal components was changed from 1 to D. Note: At D the anomaly score for all points equals zero.
+  
+  Parzen Window: Sigma was changed from 1e-2 to 1e2 along a log scale. 50 different sigmas were checked during validation for each datasets.
+  
+  OC-SVM: In addition to sigma, OC-SVMs have another important parameter 'nu, which represents the lower bound for the number of samples that are on the wrong side of the hyperplane, representing a trade off between overfitting and underfitting [[13](https://papers.nips.cc/paper/1723-support-vector-method-for-novelty-detection.pdf)]. Sigma was changed from 1e-2 to 1e2 along a log scale. nu was changed on a linear scale from 0.01 to 0.99. Each parameter took 50 different values with each pair representing a parameter setting, so 2500 parameters in total were checked during validation for each datasets.
+  
 
 ### References
 [[1](https://www.sciencedirect.com/science/article/pii/S0031320306003414)] H. Hoﬀmann, “Kernel pca for novelty detection,” Pattern Recognition, vol. 40, no. 3, pp. 863 – 874, 2007.
@@ -22,10 +49,14 @@
 
 [[7](https://dl.acm.org/citation.cfm?id=295960)] B. Sch¨olkopf, A. Smola, and K. Mu¨ller, “Nonlinear component analysis as a kernel eigenvalue problem,” Neural Computation, vol. 10, pp. 1299–1319, July 1998.
 
-[8] S. Rayana, “Outlier detection datasets: ODDS,” 2016.
+[[8](https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+%28Diagnostic%29)]  D. Dua and C. Graff, “UCI machine learning repository,” 2017.
 
-[9] http://www.heikohoﬀmann.de/kpca.html.
+[[9](http://yann.lecun.com/exdb/mnist/)]  Y. LeCun and C. Cortes, “MNIST handwritten digit database,” 2010
 
-[10] Y. Zhao, Z. Nasrullah, and Z. Li, “Pyod: A python toolbox for scalable outlier detection,” Journal of Machine Learning Research, vol. 20, no. 96, pp. 1–7, 2019.
+[[10](http://odds.cs.stonybrook.edu/)] S. Rayana, “Outlier detection datasets: ODDS,” 2016.
 
-[11] B. Scho¨lkopf, R. Williamson, A. Smola, J. Shawe-Taylor, and J. Platt, “Support vector method for novelty detection,” in Proceedings of the 12th International Conference on Neural Information Processing Systems, NIPS’99, (Cambridge, MA, USA), pp. 582–588, MIT Press, 1999.
+[[11](https://github.com/yzhao062/pyod)] Y. Zhao, Z. Nasrullah, and Z. Li, “Pyod: A python toolbox for scalable outlier detection,” Journal of Machine Learning Research, vol. 20, no. 96, pp. 1–7, 2019.
+
+[[12](http://www.heikohoﬀmann.de/kpca.html)] http://www.heikohoﬀmann.de/kpca.html.
+
+[[13](https://papers.nips.cc/paper/1723-support-vector-method-for-novelty-detection.pdf)] B. Scho¨lkopf, R. Williamson, A. Smola, J. Shawe-Taylor, and J. Platt, “Support vector method for novelty detection,” in Proceedings of the 12th International Conference on Neural Information Processing Systems, NIPS’99, (Cambridge, MA, USA), pp. 582–588, MIT Press, 1999.
