@@ -93,12 +93,10 @@ This table summarizes the results of the parameter search and testing.
 | Ionosphere  |   PCA       |  q: 22    | 0.6651 | 0.7036 |
 | Ionosphere  |   ParzenWin       |  sigma: 0.6251    | 0.9839| **0.987** |
 | Ionosphere  |  OCSVM       |  nu: 0.03 sigma: 0.7543    | 0.9832 | 0.7364 |
-
 | Circles  |   kPCA       |  q: 47    sigma: 0.0791 | 1.0 | 0.9991 |
 | Circles  |   PCA       |  q: 1    | 0.5027 | 0.4933 |
 | Circles  |   ParzenWin       |  sigma: 0.045    | 0.9994| 0.9983 |
 | Circles  |  OCSVM       |  nu: 0.21 sigma: 0.0791   | 1.0 | **0.9995** |
-
 | Roll  |   kPCA       |  q: 53    sigma: 1.0985 | 0.9997 | 0.9986 |
 | Roll  |   PCA       |  q: 1    | 0.5306 | 0.4062 |
 | Roll  |   ParzenWin       |  sigma: 0.3556   | 0.9981| 0.9982 |
