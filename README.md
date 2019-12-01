@@ -122,14 +122,13 @@ Hoffman also produced a boundary comparison in his evaluation, however he used n
 Overall, I was able to reproduce the results of Hoffman's paper and demonstrate the benfit of kPCA as a novelty detection algorithm. However, the inclusion of a validation set for paramter tuning shows some potential issues for selecting the correct values of sigma and q. 
 
 ### Dependencies and Code
+
+```bash
 numpy                              1.16.4
-
 scikit-learn                       0.21.2
-
 matplotlib                         3.1.0
-
 pyod                               0.7.4
-
+```
 kPCA_tests.py will reproduce the figures and print the results in the table. The data sets are contined in the 'datasets' folder along with dataLoader.py that is required to load them. 'methods' contains the kPCA and PCA classes used in the main file.
 
 ```bash
