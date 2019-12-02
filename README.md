@@ -38,7 +38,7 @@ The objective of this study is to reproduce Hoffman's comparison between kPCA, l
 
 
 #### Parameter Search
-The figures below show the results of the grid searches for each of the four anomaly detection methods on the validation set for each data set. The star indicates the best paramter choices in the 2D grid, the colorbar represents AUC. The central tick mark corresponds to the median AUC over the search.
+The figures below show the results of the grid searches for each of the four anomaly detection methods on the validation set for each data set. The star indicates the best paramter choices in the 2D grid, the colorbar represents AUC. The central tick mark corresponds to the median AUC over the search. The top and bottom tick marks denote the maximum and minimum respectively.
 
 ![alt text][Cancer]
 ![alt text][Digit0]
